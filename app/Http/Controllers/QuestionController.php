@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\AskQuestionRequest;
 use App\Question;
 use Illuminate\Http\Request;
 
@@ -14,7 +14,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        $questions = Question::latest()->paginate(10);
+        $questions = Question::latest()->with('user')->paginate(10);
         return view('question.index',compact('questions'));
     }
 
@@ -25,7 +25,7 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        //
+        return view('question.create');
     }
 
     /**
@@ -34,9 +34,10 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AskQuestionRequest $request)
     {
-        //
+        $request->user()->question()->create($request->all());
+        return redirect()->route('question.index')->with('success','your question has been submitted successfully');
     }
 
     /**
