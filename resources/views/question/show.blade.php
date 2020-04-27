@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -7,7 +6,7 @@
             <div class="card">
                 <div class="card-header">
                   <div class="d-flex align-item-center">
-                    <h2>Ask Question</h2>
+                    <h2>{{$question->title}}</h2>
                     <div class="ml-auto">
                       <a class="btn btn-outline-success btn-sm" href="{{route('question.index')}}">all questions</a>
                     </div>
@@ -16,10 +15,7 @@
                 </div>
 
                 <div class="card-body">
-                  <form action="{{route('question.store')}}" method="POST">
-                    @csrf
-                    @include('question._form',['buttonText'=>'Ask Question'])
-                  </form>
+                  {!!$question->body!!}
                 </div>
             </div>
         </div>

@@ -9,13 +9,14 @@
                   <div class="d-flex align-item-center">
                     <h2>All Questions</h2>
                     <div class="ml-auto">
-                      <a class="btn btn-outline-success btn-sm" href="{{route('question.create')}}">ask queston</a>
+                      <a class="btn btn-outline-success btn-sm" href="{{route('question.create')}}">Ask Queston</a>
                     </div>
                   </div>
 
                 </div>
 
                 <div class="card-body">
+
                     @include('layouts._messages')
                     @foreach($questions as $question)
                         <div class="media">
@@ -34,11 +35,23 @@
 
                           </div>
                           <div class="media-body">
-                            <h3 class="mt-2">
-                              <a href="{{$question->url}}">
-                                {{$question->title}}
-                              </a>
-                            </h3>
+                            <div class="d-flex align-item-center">
+                              <h3 class="mt-0">
+                                <a href="{{$question->url}}">
+                                  {{$question->title}}
+                                </a>
+                              </h3>
+                              <div class="ml-auto">
+                                <a class="btn btn-outline-success btn-sm" href="{{route('question.edit',$question->id)}}">Edit</a>
+                                <form class="d-inline" action="{{route('question.destroy',$question->id)}}" method="post">
+                                  @csrf
+                                  @method('DELETE')
+                                  <button class="btn btn-outline-danger btn-sm" type="submit" onclick="return confirm('are you sure ??)">delete</button>
+
+                                </form>
+                              </div>
+                            </div>
+
                             <p class="lead">
                               Asked By
                               <a href="{{$question->user->url}}">{{$question->user->name}}</a>
