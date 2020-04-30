@@ -38,17 +38,22 @@
                             <div class="d-flex align-item-center">
                               <h3 class="mt-0">
                                 <a href="{{$question->url}}">
-                                  {{$question->title}}
+                                  {{$question->title}} ?
                                 </a>
                               </h3>
                               <div class="ml-auto">
+                                @can('update',$question)
                                 <a class="btn btn-outline-success btn-sm" href="{{route('question.edit',$question->id)}}">Edit</a>
+                                @endcan
+                                @can('delete', $question)
+
                                 <form class="d-inline" action="{{route('question.destroy',$question->id)}}" method="post">
                                   @csrf
                                   @method('DELETE')
-                                  <button class="btn btn-outline-danger btn-sm" type="submit" onclick="return confirm('are you sure ??)">delete</button>
-
+                                  <button class="btn btn-outline-danger btn-sm" type="submit" onclick="return confirm('are you sure ??')">delete</button>
                                 </form>
+                                                                  
+                                @endcan
                               </div>
                             </div>
 

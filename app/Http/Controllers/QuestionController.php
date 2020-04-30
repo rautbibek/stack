@@ -1,10 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
 use App\Http\Requests\AskQuestionRequest;
 use App\Question;
 use Illuminate\Http\Request;
-
 class QuestionController extends Controller
 {
     /**
@@ -12,6 +10,11 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct(){
+        $this->middleware('auth',['except' =>['index','show']]);
+    }
+
     public function index()
     {
         $questions = Question::latest()->with('user')->paginate(10);
@@ -60,7 +63,9 @@ class QuestionController extends Controller
      */
     public function edit(Question $question)
     {
-        return view('question.edit',compact('question'));
+          $this->authorize('update', $question);
+          return view('question.edit',compact('question'));
+       
     }
 
     /**
@@ -85,9 +90,10 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
+        $this->authorize('delete', $question);
         $question->delete();
         return redirect()->route('question.index')->with('success','Question deleted succefully');
-    }
 
+    }
 
 }
