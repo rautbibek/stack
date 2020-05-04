@@ -21,4 +21,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/question','QuestionController')->except('show');
+route::resource('question.answer','AnswerController')->except(['index','show','create']);
 Route::get('/question/{slug}','QuestionController@show')->name('question.show');
+route::post('accept/{answer}/answer','AcceptAnswerController')->name('accept.answer');

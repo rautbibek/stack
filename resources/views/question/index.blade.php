@@ -5,18 +5,14 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-body">
                   <div class="d-flex align-item-center">
                     <h2>All Questions</h2>
                     <div class="ml-auto">
                       <a class="btn btn-outline-success btn-sm" href="{{route('question.create')}}">Ask Queston</a>
                     </div>
                   </div>
-
-                </div>
-
-                <div class="card-body">
-
+                  <hr>
                     @include('layouts._messages')
                     @foreach($questions as $question)
                         <div class="media">

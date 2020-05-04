@@ -11,6 +11,10 @@ class Question extends Model
       return $this->belongsTo('App\User');
     }
 
+    public function answer(){
+      return $this->hasMany('App\Answer');
+    }
+
     public function setTitleAttribute($value){
       $this->attributes['title'] =$value;
       $this->attributes['slug'] = Str::slug($value);
@@ -34,5 +38,14 @@ class Question extends Model
       return 'unanswered';
     }
 
+    public function acceptBestAnswer(Answer $answer)
+    {
+        $this->best_answer_id = $answer->id;
+        $this->save();
+    }
+
+    public function favorites(){
+      return $this->belongsToMany('App\User','favorites')->withTimestamps();
+    }
 
 }

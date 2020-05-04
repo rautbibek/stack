@@ -41,7 +41,21 @@ class User extends Authenticatable
       return $this->hasMany('App\Question');
     }
 
+    public function answer(){
+      return $this->hasMany('App\Answer');
+    }
+
     public function getUrlAttribute(){
       return "#";
+    }
+
+    public function getAvatarAttribute(){
+        $email = $this->email;
+        $size = 30;
+        return "https://www.gravatar.com/avatar/" . md5( strtolower( trim( $email ) ) ) . "?s=" . $size;
+    }
+
+    public function favorites(){
+      return $this->belongsToMany('App\Question','favorites')->withTimestamps();
     }
 }
