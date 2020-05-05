@@ -14,19 +14,38 @@
                   <hr>
                    <div class="media">
                     <div class="d-flex flex-column vote-controls">
-                      <a title="vote up" class="vote-up">
+                    <a title="vote up" class="vote-up {{Auth::guest()?'off':''}}" onclick="event.preventDefault(); 
+                    document.getElementById('up-vote-{{$question->id}}').submit();">
                         <i class="fas fa-caret-up fa-3x"></i>
                       </a>
-                      <span class="votes-count">1230</span>
-                      <a title="vote down thi question is not useful" class="vote-down off">
+                    <form id="up-vote-{{$question->id}}" action="/question/{{$question->id}}/vote" method="POST">
+                    @csrf
+                      <input type="hidden" name="vote" value="1">
+                    </form>
+                    <span class="votes-count">
+                      {{$question->votes}}
+                      
+                    </span>
+                      <a title="vote down thi question is not useful" class="vote-down " onclick="event.preventDefault(); 
+                    document.getElementById('vote-down-{{$question->id}}').submit();">
                         <i class="fas fa-caret-down fa-3x"></i>
                       </a>
-                    
-                      <a title="click again to make it favouit" class="fav-ans mt-5">
+                    <form id="vote-down-{{$question->id}}" action="/question/{{$question->id}}/vote" method="POST">
+                       @csrf
+                      <input type="hidden" name="vote" value="-1">
+                    </form>
+                    <a title="click again to make it favouit" class="{{$question->is_favorite ?'fav-ans':'off'}} mt-5"
+                       onclick="event.preventDefault(); document.getElementById('favorite-id-{{$question->id}}').submit()"
+                      >
                         <i class="fas fa-star fa-2x"></i><br>
-                      <span class="favorites-count" >{{$question->favorites->count()}}</span>
+                      <span class="favorites-count" >{{$question->favorite_count}}</span>
                       </a>
-                      
+                    <form id="favorite-id-{{$question->id}}" method="POST" action="/question/{{$question->id}}/favorites">
+                        @if($question->is_favorite)
+                        @method('DELETE')
+                        @endif
+                        @csrf
+                      </form>
                     </div>
                      <div class="media-body">
                           {!! $question->body !!}

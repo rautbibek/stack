@@ -30,7 +30,7 @@ class AnswerPolicy
      */
     public function view(User $user, Answer $answer)
     {
-        return $user->id = $answer->question->user_id;
+        return $user->id === $answer->question->user_id;
     }
 
     /**

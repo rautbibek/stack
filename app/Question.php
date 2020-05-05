@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,7 +31,7 @@ class Question extends Model
 
     public function getStatusAttribute(){
       if($this->answers >0){
-        if($this->best_answere_id){
+        if($this->best_answer_id){
           return "answered-accepted";
         }
         return "answered";
@@ -46,6 +47,26 @@ class Question extends Model
 
     public function favorites(){
       return $this->belongsToMany('App\User','favorites')->withTimestamps();
+    }
+
+    public function getFavoriteCountAttribute(){
+      return $this->favorites->count();
+    }
+
+    public function getIsFavoriteAttribute(){
+      return $this->favorites()->where('user_id',Auth::id())->count() >0;
+    }
+
+    public function voted(){
+      return $this->morphToMany('App\User','votable');
+    }
+
+    public function upVotes(){
+      return $this->voted()->wherePivot('vote',1);
+    } 
+
+    public function downVotes(){
+      return $this->voted()->wherePivot('vote',-1);
     }
 
 }

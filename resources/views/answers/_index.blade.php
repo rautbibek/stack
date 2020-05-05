@@ -6,13 +6,23 @@
                   @foreach ($answers as $answer)
                       <div class="media">
                          <div class="d-flex flex-column vote-controls">
-                      <a title="vote up" class="vote-up">
+                         <a title="vote up" class="vote-up {{Auth::guest()?'off':''}}" onclick="event.preventDefault(); 
+                    document.getElementById('up-vote-answer-{{$answer->id}}').submit();">
                         <i class="fas fa-caret-up fa-3x"></i>
                       </a>
-                      <span class="votes-count">1230</span>
-                      <a title="vote down thi question is not useful" class="vote-down off">
+                    <form id="up-vote-answer-{{$answer->id}}" action="/answer/{{$answer->id}}/vote" method="POST">
+                       @csrf
+                      <input type="hidden" name="vote" value="1">
+                    </form>
+                    <span class="votes-count">{{$answer->votes_count}}</span>
+                      <a title="vote down thi question is not useful" class="vote-down off" onclick="event.preventDefault(); 
+                    document.getElementById('down-vote-answer-{{$answer->id}}').submit();">
                         <i class="fas fa-caret-down fa-3x"></i>
                       </a>
+                      <form id="down-vote-answer-{{$answer->id}}" action="/answer/{{$answer->id}}/vote" method="POST">
+                       @csrf
+                      <input type="hidden" name="vote" value="-1">
+                    </form>
                     @can('view',$answer)
                       <a title="Mark this as a best answer" class="{{$answer->best}} mt-5"
                       onclick="event.preventDefault; document.getElementById('best-answer-{{$answer->id}}').submit()"
@@ -27,10 +37,11 @@
                     @if($answer->is_best)
                     <a title="question author Mark this answer as a best answer" class="{{$answer->best}} mt-5">
                         <i class="fas fa-check fa-2x"></i><br>
-                        <span class="favorites-count" >12489</span>
+                        <span class="favorites-count" >984934</span>
                       </a>
-                      @endif
+                    @endif
                     @endcan
+                    
                     </div>
                         <div class="media-body">
                           {!!$answer->body!!}
