@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
+    use VotableTrait;
     protected $fillable = ['title','body'];
     public function user(){
       return $this->belongsTo('App\User');
@@ -55,18 +56,6 @@ class Question extends Model
 
     public function getIsFavoriteAttribute(){
       return $this->favorites()->where('user_id',Auth::id())->count() >0;
-    }
-
-    public function voted(){
-      return $this->morphToMany('App\User','votable');
-    }
-
-    public function upVotes(){
-      return $this->voted()->wherePivot('vote',1);
-    } 
-
-    public function downVotes(){
-      return $this->voted()->wherePivot('vote',-1);
     }
 
 }
