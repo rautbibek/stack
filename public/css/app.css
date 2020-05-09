@@ -16970,3 +16970,11 @@ strong {
   color: #38c172;
 }
 
+.post {
+  padding: 40px 0px;
+}
+
+.post:not(:last-child) {
+  border-bottom: 1px solid rgba(55, 56, 56, 0.2);
+}
+

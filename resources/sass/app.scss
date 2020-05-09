@@ -1,6 +1,5 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
-
 // Variables
 @import 'variables';
 $fa-font-path: "../webfonts";
@@ -8,72 +7,72 @@ $fa-font-path: "../webfonts";
 @import '~bootstrap/scss/bootstrap';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
 @import '~@fortawesome/fontawesome-free/scss/solid.scss';
-
-
-
-.countersr{
-  margin-right: 30px;
-  font-size: 10px;
-  text-align: center;
-}
-strong{
-  display: block;
-  font-size: 2em;
-}
-.vote, .answer{
-  width: 60px;
-  height: 60px;
-}
-.status{
-  &.unanswered{
-    border:none;
-  }
-  &.answered{
-    border: 1px solid $green;
-    color:$green;
-  }
-  &.answered-accepted {
-    background-color:$green;
-    color:$white;
-  }
+.countersr {
+    margin-right: 30px;
+    font-size: 10px;
+    text-align: center;
 }
 
-.vote-controls{
-  min-width: 60px;
-  margin-right:30px;
-  text-align:center;
-  color:$grey;
-  
+strong {
+    display: block;
+    font-size: 2em;
+}
 
-  span {
-      &.votes-count {
-          font-size: 25px;
-      }
+.vote,
+.answer {
+    width: 60px;
+    height: 60px;
+}
 
-      &.favorites-count {
-          font-size: 12px;
-      }
-  }
-  a{
-    cursor: pointer;
-    color:$darkgrey;
-
-    &.off, &.off:hover{
-      color:$lightgrey;
+.status {
+    &.unanswered {
+        border: none;
     }
-
-    &.fav-ans{
-      &.fav-ans, &fav-ans:hover{
-        color:$yellow;
-      }
+    &.answered {
+        border: 1px solid $green;
+        color: $green;
     }
-
-    &.vote-accept{
-      color:$green;
+    &.answered-accepted {
+        background-color: $green;
+        color: $white;
     }
-
-  }
 }
 
+.vote-controls {
+    min-width: 60px;
+    margin-right: 30px;
+    text-align: center;
+    color: $grey;
+    span {
+        &.votes-count {
+            font-size: 25px;
+        }
+        &.favorites-count {
+            font-size: 12px;
+        }
+    }
+    a {
+        cursor: pointer;
+        color: $darkgrey;
+        &.off,
+        &.off:hover {
+            color: $lightgrey;
+        }
+        &.fav-ans {
+            &.fav-ans,
+            &fav-ans:hover {
+                color: $yellow;
+            }
+        }
+        &.vote-accept {
+            color: $green;
+        }
+    }
+}
 
-
+.post {
+    padding: 40px 0px;
+    &:not(:last-child) {
+        border-bottom: 1px solid rgba($darkgrey, .2);
+    }
+}

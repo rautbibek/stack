@@ -14,7 +14,7 @@ class Question extends Model
     }
 
     public function answer(){
-      return $this->hasMany('App\Answer');
+      return $this->hasMany('App\Answer')->orderBy('votes_count','DESC');
     }
 
     public function setTitleAttribute($value){
@@ -56,6 +56,18 @@ class Question extends Model
 
     public function getIsFavoriteAttribute(){
       return $this->favorites()->where('user_id',Auth::id())->count() >0;
+    }
+
+    public function getHtmlBodyattribute(){ 
+      return $this->parseDown();
+    }
+
+    public function getExcerptAttribute(){
+      return str_limit(strip_tags($this->parseDown()),250);
+    }
+
+    public function parseDown(){
+      return clean($this->body);
     }
 
 }
