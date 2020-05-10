@@ -7,7 +7,7 @@
                 <div class="card-body">
                     <h3>Q. {{$question->title}}</h3>
                     <hr>
-                    <form action="{{route('question.answer.update',[$question->id,$answer->id])}}" method="POST">
+                    <form action="{{route('question.answer.update',[$question->id,$answer->id])}}" >
                         @method('PUT')
                         @csrf
                       <div class="form-group">

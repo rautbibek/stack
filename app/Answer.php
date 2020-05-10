@@ -8,8 +8,8 @@ class Answer extends Model
 {
     use VotableTrait;
 
-    protected $fillable=['body','user_id'];
-
+    protected $fillable= ['body','user_id'];
+    protected $appends = ['created_date','body_html'];
     public function question(){
         return $this->belongsTo('App\Question');
     }
@@ -20,6 +20,10 @@ class Answer extends Model
 
     public function getBestAttribute(){
         return $this->isBest() ? 'vote-accept':'';
+    }
+     
+    public function getCreatedDateAttribute(){
+      return $this->created_at->diffForHumans();
     }
 
     public static function boot(){
@@ -39,6 +43,18 @@ class Answer extends Model
 
     public function getIsBestAttribute(){
         return $this->isBest();
+    }
+
+    public function getBodyHtmlattribute(){ 
+      return $this->parseDown();
+    }
+
+    public function getExcerptAttribute(){
+      return str_limit(strip_tags($this->parseDown()),250);
+    }
+
+    public function parseDown(){
+      return clean($this->body);
     }
 
 

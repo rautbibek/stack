@@ -76,3 +76,7 @@ strong {
         border-bottom: 1px solid rgba($darkgrey, .2);
     }
 }
+
+[v-cloak] {
+    display: none;
+}
