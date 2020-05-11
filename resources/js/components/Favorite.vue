@@ -26,9 +26,7 @@ export default {
         url(){
             return `/question/${this.id}/favorites`;
         },
-        loggedIn(){
-            return window.Auth.loggedIn;
-        }
+
     },
     methods:{
         toggle(){
