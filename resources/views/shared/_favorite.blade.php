@@ -1,4 +1,4 @@
-<a title="click again to make it favouit" class="{{$model->is_favorite ?'fav-ans':'off'}} mt-5"
+<a title="click again to make it favouit" class="{{$model->is_favorite ?'fav-ans':''}} mt-5"
    onclick="event.preventDefault(); document.getElementById('favorite-id-{{$model->id}}').submit()"
   >
     <i class="fas fa-star fa-2x"></i><br>

@@ -9,7 +9,7 @@ class Question extends Model
 {
     use VotableTrait;
     protected $fillable = ['title','body'];
-    protected $appends = ['created_date'];
+    protected $appends = ['created_date','favorite_count','is_favorite'];
     public function user(){
       return $this->belongsTo('App\User');
     }
