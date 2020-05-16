@@ -1,7 +1,32 @@
 <template>
-    <div>
-        
+  <div class="media post">
+     <vote :model="answer" name="answer"></vote>
+    <div class="media-body">
+      <form v-if="editing" @submit.prevent="update">
+        <div class="fomr-grup">
+          <textarea class="form-control" name="body" v-model="body" id="answer" rows="7" required></textarea>
+        </div>
+        <button type="submit" :disabled="isInvalid" class="btn btn-outline-primary btn-sm mt-2">update</button>
+        <button class="btn btn-outline-danger btn-sm mt-2" @click.prevent="cancel" type="button">cancel</button>
+      </form>
+      <div v-else>
+        <div v-html="bodyHtml"></div>
+        <div class="row mt-5">
+            <div class="col-4">
+                <div class="btn-group">
+                    <a v-if="authorize('modify',answer)" @click.prevent="edit" class="btn btn-outline-success btn-sm mr-1">Edit</a>                    
+                    <button v-if="authorize('modify',answer)" @click="destroy" class="btn btn-outline-danger btn-sm">Delete</button>
+                </div>
+            </div>
+            <div class="col-4"></div>
+             <div class="col-4 ">                                   
+              <user-info :model="answer" label="Answered"></user-info>
+            </div>
+        </div>
+      </div>
+     
     </div>
+  </div>
 </template>
 <script>
 export default {
@@ -45,6 +70,7 @@ export default {
             if(confirm('are you suer ?')){
                 axios.delete(this.endpoint)
                      .then(res=>{
+                         this.$emit('deleted');
                          $(this.$el).fadeOut(500,()=>{
                              this.$toast.success(res.data.message,'success',{timeout:3000});
                          })

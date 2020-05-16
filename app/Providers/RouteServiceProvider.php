@@ -32,7 +32,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         //
         Route::bind('slug',function($slug){
-          return Question::with('user','answer.user')->where('slug',$slug)->first() ??abort('404');
+          return Question::with('user')->where('slug',$slug)->first() ??abort('404');
         });
         parent::boot();
     }

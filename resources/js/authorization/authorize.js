@@ -8,7 +8,6 @@ export default {
                 return policies[policy](user, model);
             }
         };
-
         Vue.prototype.loggedIn = window.Auth.loggedIn;
     }
 }

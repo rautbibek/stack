@@ -10,6 +10,7 @@
     </div>
 </template>
 <script>
+import eventBus from '../event-bus';
 export default {
     props:['answer'],
     data(){
@@ -43,12 +44,16 @@ export default {
         accept(){
             
             axios.post(this.url)
+             
                  .then(res => {
                         this.is_best = true;
                         this.$toast.success(res.data.message,'success',{
                         timeout:3000,
                         position: 'topRight',
                     });
+                    eventBus.$emit('accepted');
+                    
+                   
                  })
         }
     },

@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 class AnswerController extends Controller
 {
 
+    public function __construct(){
+        $this->middleware('auth')->except('index');
+    }
+    public function index(Question $question){
+        return $question->answer()->with('user')->simplePaginate(3);
+
+    }
 
     public function store(Question $question,Request $request)
     {
